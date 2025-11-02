@@ -5,12 +5,12 @@ import SystemOverview from '../../components/AdminDashboard/SystemOverview'
 
 export default function AdminDashboard() {
   return (
-    <div className="space-y-6 lg:space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 sm:gap-0">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
         <div className="flex-1">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Dashboard Overview</h1>
-          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">
+          <p className="text-gray-600 mt-2 text-sm sm:text-base">
             Welcome to the UniPort Student Verification System admin panel
           </p>
         </div>

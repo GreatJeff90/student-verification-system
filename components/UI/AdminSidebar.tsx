@@ -25,10 +25,9 @@ interface AdminSidebarProps {
   onClose?: () => void
 }
 
-export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarProps) {
+export default function AdminSidebar({ isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname()
 
-  // THIS IS WHERE THE menuItems ARRAY GOES ↓
   const menuItems: MenuItem[] = [
     { 
       href: '/admin', 
@@ -56,7 +55,7 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
       href: '/admin/notifications', 
       label: 'Notifications', 
       icon: <Bell className="w-5 h-5" />,
-      badge: 3  // This shows the notification count in the sidebar
+      badge: 3
     },
     { 
       href: '/admin/security', 
@@ -69,15 +68,6 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
       icon: <Settings className="w-5 h-5" /> 
     },
   ]
-  // END OF menuItems ARRAY ↑
-
-  // Mobile sidebar classes
-  const mobileClasses = `
-    fixed lg:static inset-y-0 left-0 z-50
-    transform transition-transform duration-300 ease-in-out
-    ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-    lg:translate-x-0
-  `
 
   return (
     <>
@@ -90,20 +80,24 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
       )}
 
       {/* Sidebar */}
-      <div className={`${mobileClasses} w-64 lg:w-64 bg-white/95 lg:bg-white/80 backdrop-blur-md border-r border-gray-200 h-screen sticky top-0 overflow-y-auto`}>
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-50
+        w-64 bg-white border-r border-gray-200 h-screen
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         {/* Logo Section */}
-        <div className="p-4 lg:p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <img 
                 src="https://www.uniport.edu.ng/wp-content/themes/unipix/assets/images/logo/uniport_logo1.png" 
                 alt="University of Port Harcourt"
-                className="h-8 lg:h-10 w-auto"
+                className="h-10 w-auto"
               />
               <div>
                 <h2 className="text-lg font-bold text-gray-900">UniPort</h2>
-                <p className="text-xs text-gray-600 hidden lg:block">Admin System</p>
-                <p className="text-xs text-gray-600 lg:hidden">Admin</p>
+                <p className="text-xs text-gray-600">Admin System</p>
               </div>
             </div>
             
@@ -128,7 +122,6 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
                   key={item.href}
                   href={item.href}
                   onClick={() => {
-                    // Close mobile sidebar when a link is clicked
                     if (onClose) {
                       onClose()
                     }
@@ -163,7 +156,7 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
           </div>
 
           {/* System Status */}
-          <div className="mt-6 lg:mt-8 p-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl text-white">
+          <div className="mt-8 p-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl text-white">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">System Status</span>
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

@@ -1,41 +1,35 @@
-// app/admin/layout.tsx
+// app/admin/layout.tsx 
 'use client'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 import AdminSidebar from '../../components/UI/AdminSidebar'
 import AdminHeader from '../../components/UI/AdminHeader'
 
-interface AdminLayoutProps {
-  children: ReactNode
-}
-
-export default function AdminLayout({ children }: AdminLayoutProps) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
-
-  const closeSidebar = () => {
-    setSidebarOpen(false)
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar - Hidden on mobile by default, overlay when open */}
       <AdminSidebar 
         isOpen={sidebarOpen} 
-        onClose={closeSidebar} 
+        onClose={() => setSidebarOpen(false)} 
       />
       
+      {/* Main Content - Always takes full width */}
       <div className="flex-1 flex flex-col min-w-0">
+        {/* Header */}
         <AdminHeader 
-          onMenuToggle={toggleSidebar}
+          onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
           sidebarOpen={sidebarOpen}
         />
         
-        <main className="flex-1 p-4 lg:p-6 overflow-auto">
-          <div className="max-w-7xl mx-auto">
-            {children}
-          </div>
+        {/* Main Content Area */}
+        <main className="flex-1 overflow-auto p-6">
+          {children}
         </main>
       </div>
     </div>
